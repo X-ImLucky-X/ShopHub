@@ -2,6 +2,28 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 
+// ── MUST be outside CheckoutPage — defining it inside causes remount on every keystroke ──
+const Field = ({ label, name, placeholder, type = "text", half = false, value, onChange, error }) => (
+  <div className={half ? "col-span-1" : "col-span-2"}>
+    <label className="block text-xs font-semibold text-gray-500 mb-1.5 tracking-wide">
+      {label}
+    </label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white placeholder-gray-700
+        focus:outline-none focus:bg-white/8 transition-all duration-200
+        ${error ? "border-red-500/50 focus:border-red-500/70" : "border-white/8 focus:border-white/25"}`}
+    />
+    {error && (
+      <p className="mt-1 text-[11px] text-red-400">{error}</p>
+    )}
+  </div>
+);
+
 const CheckoutPage = () => {
   const [cart, setCart]       = useState([]);
   const [loading, setLoading] = useState(true);
@@ -139,28 +161,6 @@ const CheckoutPage = () => {
     }
   };
 
-  // ── Field component ───────────────────────────────────────────────────────
-  const Field = ({ label, name, placeholder, type = "text", half = false }) => (
-    <div className={half ? "col-span-1" : "col-span-2"}>
-      <label className="block text-xs font-semibold text-gray-500 mb-1.5 tracking-wide">
-        {label}
-      </label>
-      <input
-        type={type}
-        name={name}
-        value={shipping[name]}
-        onChange={handleField}
-        placeholder={placeholder}
-        className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm text-white placeholder-gray-700
-          focus:outline-none focus:bg-white/8 transition-all duration-200
-          ${errors[name] ? "border-red-500/50 focus:border-red-500/70" : "border-white/8 focus:border-white/25"}`}
-      />
-      {errors[name] && (
-        <p className="mt-1 text-[11px] text-red-400">{errors[name]}</p>
-      )}
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-black text-white">
 
@@ -216,12 +216,30 @@ const CheckoutPage = () => {
             </h2>
 
             <div className="grid grid-cols-2 gap-4">
-              <Field label="Full Name"    name="name"       placeholder="Rahul Sharma"          />
-              <Field label="Phone Number" name="phone"      placeholder="+91 98765 43210" half  />
-              <Field label="Country"      name="country"    placeholder="India"           half  />
-              <Field label="Street Address" name="address"  placeholder="123, MG Road, Flat 4B" />
-              <Field label="City"         name="city"       placeholder="New Delhi"       half  />
-              <Field label="Postal Code"  name="postalCode" placeholder="110001"          half  />
+              <Field
+                label="Full Name" name="name" placeholder="Rahul Sharma"
+                value={shipping.name} onChange={handleField} error={errors.name}
+              />
+              <Field
+                label="Phone Number" name="phone" placeholder="+91 98765 43210" half
+                value={shipping.phone} onChange={handleField} error={errors.phone}
+              />
+              <Field
+                label="Country" name="country" placeholder="India" half
+                value={shipping.country} onChange={handleField} error={errors.country}
+              />
+              <Field
+                label="Street Address" name="address" placeholder="123, MG Road, Flat 4B"
+                value={shipping.address} onChange={handleField} error={errors.address}
+              />
+              <Field
+                label="City" name="city" placeholder="New Delhi" half
+                value={shipping.city} onChange={handleField} error={errors.city}
+              />
+              <Field
+                label="Postal Code" name="postalCode" placeholder="110001" half
+                value={shipping.postalCode} onChange={handleField} error={errors.postalCode}
+              />
             </div>
 
             {/* Security note */}
@@ -236,7 +254,6 @@ const CheckoutPage = () => {
           {/* ── Right: Order summary ───────────────────────────────────────── */}
           <div className="flex flex-col gap-5 sticky top-24">
 
-            {/* Items card */}
             <div className="bg-[#0d0d0d] border border-white/6 rounded-2xl overflow-hidden">
               <div className="px-5 py-4 border-b border-white/6">
                 <h2 className="font-black text-base text-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>
@@ -244,7 +261,6 @@ const CheckoutPage = () => {
                 </h2>
               </div>
 
-              {/* items */}
               <div className="divide-y divide-white/5 max-h-60 overflow-y-auto">
                 {loading
                   ? [...Array(3)].map((_, i) => (
@@ -256,7 +272,6 @@ const CheckoutPage = () => {
                     ))
                   : cart.map((item) => (
                       <div key={item.product._id} className="flex items-center gap-3 px-5 py-3.5">
-                        {/* image */}
                         <div className="relative shrink-0">
                           <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/8 overflow-hidden">
                             <img
@@ -281,7 +296,6 @@ const CheckoutPage = () => {
                 }
               </div>
 
-              {/* totals */}
               <div className="px-5 py-4 border-t border-white/6 flex flex-col gap-2.5 text-sm">
                 <div className="flex justify-between text-gray-400">
                   <span>Subtotal</span>
@@ -303,7 +317,6 @@ const CheckoutPage = () => {
               </div>
             </div>
 
-            {/* Pay button */}
             <button
               onClick={handlePayment}
               disabled={paying || paid || loading || cart.length === 0}
@@ -342,7 +355,6 @@ const CheckoutPage = () => {
               )}
             </button>
 
-            {/* Accepted payment methods */}
             <div className="flex items-center justify-center gap-3 flex-wrap">
               {["UPI", "Cards", "NetBanking", "Wallets"].map((m) => (
                 <span key={m} className="px-2.5 py-1 text-[10px] font-semibold text-gray-600 border border-white/6 rounded-md">

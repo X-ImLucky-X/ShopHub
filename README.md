@@ -45,7 +45,7 @@ The project focuses on:
 # 🚀 Live Demo
 
 🌐 Frontend:
-https://demo.com
+https://shop-hub-pi-one.vercel.app/
 
 ---
 
@@ -298,21 +298,43 @@ npm run dev
 
 ## 🏠 Home Page
 
+![Home Page](Screenshots\HOMEPAGE.png)
+
 ---
 
 ## 🛍️ Products Page
+
+![Products Page](Screenshots\PRODUCT.png)
 
 ---
 
 ## 🛒 Cart Page
 
+![CART](Screenshots\CART.png)
+
 ---
 
 ## 💳 Checkout Page
 
+![CHECKOUT](Screenshots\CHECKOUT.png)
+
 ---
 
 ## 🔐 Login Page
+
+![LOGIN](Screenshots\LOGIN.png)
+
+---
+
+## REGISTER
+
+![REGISTER](Screenshots\REGISTER.png)
+
+---
+
+## Razor Pay
+
+![RAZORPAY](Screenshots\RAZORPAY.png)
 
 ---
 
