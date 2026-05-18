@@ -298,43 +298,43 @@ npm run dev
 
 ## 🏠 Home Page
 
-![Home Page](Screenshots\HOMEPAGE.png)
+![Home Page](./Screenshots\HOMEPAGE.png)
 
 ---
 
 ## 🛍️ Products Page
 
-![Products Page](Screenshots\PRODUCT.png)
+![Products Page](./Screenshots\PRODUCT.png)
 
 ---
 
 ## 🛒 Cart Page
 
-![CART](Screenshots\CART.png)
+![CART](./Screenshots\CART.png)
 
 ---
 
 ## 💳 Checkout Page
 
-![CHECKOUT](Screenshots\CHECKOUT.png)
+![CHECKOUT](./Screenshots\CHECKOUT.png)
 
 ---
 
 ## 🔐 Login Page
 
-![LOGIN](Screenshots\LOGIN.png)
+![LOGIN](./Screenshots\LOGIN.png)
 
 ---
 
 ## REGISTER
 
-![REGISTER](Screenshots\REGISTER.png)
+![REGISTER](./Screenshots\REGISTER.png)
 
 ---
 
 ## Razor Pay
 
-![RAZORPAY](Screenshots\RAZORPAY.png)
+![RAZORPAY](./Screenshots\RAZORPAY.png)
 
 ---
 
